@@ -298,7 +298,9 @@ $$
 
 推移率の破れが最大の triads $a_{ij}, a_{jk}, a_{ki}$ に注目している.
 
-次のように, $a_{ij}$ と $a_{ik} a_{kj}$ とのずれを $a_{ij}$ (比率尺度なので) で正規化したものを考えている.
+$a_{ij} a_{jk} a_{ki} > 1$ となるサイクルを考慮している.
+
+<!-- 次のように, $a_{ij}$ と $a_{ik} a_{kj}$ とのずれを $a_{ij}$ (比率尺度なので) で正規化したものを考えている.
 
 $$
 \begin{align*}
@@ -306,7 +308,7 @@ $$
 = ~~ & \min \left\{ \frac{| a_{ij} a_{jk} - a_{ik}|}{a_{ij} a_{jk}}, \frac{| a_{ik} - a_{ij} a_{jk} |}{a_{ik}}, \frac{|a_{ij} a_{jk} - a_{ik}|}{a_{ij} a_{jk}} \right\} \\ 
 = ~~ & \min \left\{ \left| 1 - \frac{a_{ik}}{a_{ij} a_{jk}} \right|, \left| 1 - \frac{a_{ij} a_{jk}}{a_{ik}} \right| \right\} \\
 \end{align*}
-$$
+$$ -->
 
 
 ---
@@ -321,3 +323,164 @@ $$
 \mathrm{PLI}(A) = \sum_{i < j < k} \left( \frac{a_{ik}}{a_{ij} a_{jk}} + \frac{a_{ij} a_{jk}}{a_{ik}} - 2 \right) / 
 \begin{pmatrix} n \\ 3 \end{pmatrix}
 $$
+
+3 次元の PCM が整合しているとき, 次が成り立つ.
+
+$$
+\mathrm{det}(A) = \underset{=1}{\underline{\frac{a_{ik}}{a_{ij} a_{jk}}}} + \underset{=1}{\underline{\frac{a_{ij} a_{jk}}{a_{ik}}}} - 2 = 0,
+\quad i, j, k \in \{1,2,3\}, ~~ i \neq j, j \neq k, k \neq i
+$$
+
+元の PCM から $i, j, k$ の 3 行 3 列を取り出した 3 次元の PCM の行列式の平均を計算している.
+
+## その他の整合性指標
+
+[41] にさらに多くの整合性指標がまとめられている.
+
+---
+
+# The Triads Geometric Consistency Measure
+
+## 数値例
+
+次の PCM $A, B$ を考える.
+
+$$
+A = \begin{pmatrix}
+1 & 2 & 7 \\
+1/2 & 1 & 3 \\
+1/7 & 1/3 & 1
+\end{pmatrix}, \quad
+B = \begin{pmatrix}
+1 & 2 & 9 \\
+1/2 & 1 & 3 \\
+1/9 & 1/3 & 1
+\end{pmatrix}
+$$
+
+$a_{12} a_{23} \neq a_{13}, ~~ (2 \times 3 \neq 7)$, $b_{12} b_{23} \neq b_{13}, ~~ (2 \times 3 \neq 9)$ なので, $A, B$ はともに整合していない.
+
+直感的に $A$ は $B$ よりも整合している.
+$\mathrm{CR}, \mathrm{GCI}$ をそれぞれ計算すると, $\mathrm{CR}(A) = 0.002, ~ \mathrm{GCI}(A) = 0.008, ~ \mathrm{CR}(B) = 0.017, ~ \mathrm{GCI}(B) = 0.055$ となり, $A$ が $B$ よりも整合していることが確かめられる.
+
+---
+
+# The Triads Geometric Consistency Measure
+
+## Triads に基づく整合性の評価
+
+どちらの行列がより整合しているかを評価するために, 必ずしもある順位付け方法を適用して, 対応する整合性指標を計算する必要はない.
+
+ここでは triads に基づく一貫性の評価を考える.
+長さ 3 のサイクルの強度を評価する.
+強度が 1 に近いほどそのサイクルは整合している.
+
+長さ 3 のサイクルの強度の 1 からの偏差 $d_{ijk} = f(a_{ij} a_{jk} a_{ki})$ をすべての $i, j, k$ について計算する.
+
+$$
+M = g\left( d_{123}, \ldots, d_{ijk} \ldots d_{n(n-1)(n-2)} \right), \quad i \neq j \neq k
+$$
+
+---
+
+# The Triads Geometric Consistency Measure
+
+## $d_{ijk} = a_{ij} a_{jk} a_{ki} - 1$ の和
+
+まず, 単純に $d_{ijk} = a_{ij} a_{jk} a_{ki} - 1$ の和をとった $M_1$ を考えることができる.
+
+$$
+M_1 = \sum_{i \neq j \neq k} \left( a_{ij} a_{jk} a_{ki} - 1 \right)
+$$
+
+---
+
+# The Triads Geometric Consistency Measure
+
+## $d_{ijk} = a_{ij} a_{jk} a_{ki} + (a_{ij} a_{jk} a_{ki})^{-1} - 2$ の和
+
+$a_{ij} a_{jk} a_{ki}$ と $(a_{ij} a_{jk} a_{ki})^{-1}$ は整合していない限り, 一方が 1 より小さく, もう一方が 1 より大きい.
+逆数 $(a_{ij} a_{jk} a_{ki})^{-1}$ を考慮すると, 次のように書ける. 
+
+$$
+M_1 = 3 \sum_{i < j < k} \left( a_{ij} a_{jk} a_{ki} + \frac{1}{a_{ij} a_{jk} a_{ki}} - 2 \right)
+$$
+
+係数部分以外は Pelaez and Lamata の整合性指標 $\mathrm{PLI}$ [31] と同じである. ($\mathrm{PLI}$ は平均)
+
+---
+
+# The Triads Geometric Consistency Measure
+
+## 1 より強度が大きいサイクルと小さいサイクル
+
+整合していない二つのサイクル $a_{ij} a_{jk} a_{ki}$ と $a_{ik} a_{kj} a_{ji} = (a_{ij} a_{jk} a_{ki})^{-1}$ は整合性尺度に逆方向の影響を与える.
+これらが相殺してしまうことを回避するためのアプローチとして, 次が考えられる.
+
+**1. 強度が 1 より大きい, あるいは 1 より小さいサイクルのみを考慮する**
+
+$M_1$ において強度が 1 より大きいサイクルのみを考慮する.
+
+$$
+M_2 = \max_{i < j < k} \left\{ a_{ij} a_{jk} a_{ki} - 1 ~~ \text{with} ~~ a_{ij} a_{jk} a_{ki} > 1 \right\}
+$$
+
+これは Koczkodaj の整合性指標 $\mathrm{KI}$ [30] に等しい.
+
+**2. 定義そのものを考慮する**
+
+$a_{ij} a_{jk} a_{ki}$ と $a_{ik} a_{kj} a_{ji}$ の影響が同じになるように指標を定める.
+そのために, ここでは強度の対数をとる.
+
+---
+
+# The Triads Geometric Consistency Measure
+
+## $\mathrm{T\text{-}GCI}$
+
+$d_{ijk} = \left( \log (a_{ij} a_{jk} a_{ki}) - \log 1 \right)^2 = \left( \log (a_{ij} a_{jk} a_{ki}) \right)^2$ とする.
+
+### Definition 1.
+
+PCM $A = (a_{ij})$ に対して, Triads Geometric Consistency Measure ($\mathrm{T\text{-}GCI}$) を次のように定義する.
+
+$$
+\mathrm{T\text{-}GCI}(A) = \frac{1}{3n(n-1)(n-2)} \sum_{i \neq j \neq k} \left( \log (a_{ij} a_{jk} a_{ki}) \right)^2
+$$
+
+サイクルの長さ 3 で割っている. こうすることで, 3 以上のどのサイクルの長さでも同じ値が得られる.
+
+---
+
+# The Triads Geometric Consistency Measure
+
+### Remark 1.
+
+$d_{ijk}$ の $i, j, k$ を入れ替えても値は変わらない.
+そのため, 次が成り立つ.
+
+$$
+\mathrm{T\text{-}GCI}(A) = \frac{2}{n(n-1)(n-2)} \sum_{i < j < k} \left( \log (a_{ij} a_{jk} a_{ki}) \right)^2
+$$
+
+---
+
+# A Link between the Two Groups of Inconsistency Measures
+
+## Theorem 1.
+
+PCM $A = (a_{ij})$ に対して次が成り立つ.
+
+$$
+\mathrm{T\text{-}GCI}(A) = \mathrm{GCI}(A)
+$$
+
+これによって, $\mathrm{GCI}$ のと同じしきい値 [10] を使うことができる.
+$n = 3$ で $\mathrm{T\text{-}GCI} = 0.31$, $n = 4$ で $\mathrm{T\text{-}GCI} = 0.35$, $n > 4$ で $\mathrm{T\text{-}GCI} = 0.37$.
+
+また, $\mathrm{GCI}$ と同じ値をとることから整合性指標の公理 [50, 52] を満たすことが確かめられる.
+
+---
+
+# A Link between the Two Groups of Inconsistency Measures
+
