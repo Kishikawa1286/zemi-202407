@@ -482,5 +482,166 @@ $n = 3$ で $\mathrm{T\text{-}GCI} = 0.31$, $n = 4$ で $\mathrm{T\text{-}GCI} =
 
 ---
 
-# A Link between the Two Groups of Inconsistency Measures
+# Computational Complexity
 
+コンピュータ上では, 乗算と除算, 対数関数と指数関数の計算コストはそれぞれ同じであるため, 乗算と対数関数にまとめる.
+
+## $\mathrm{GCI}$ の計算量
+
+$\mathrm{GCI}$ の計算においては, まず $\prod_{j = 1}^n a_{ij}, ~ i = 1, \ldots, n$ を計算する.
+ここで $n(n-1)$ 回積をとる.
+$n$ 乗根 $\left( \prod_{j = 1}^n a_{ij} \right)^\frac{1}{n}$ の計算のために, $n$ 回の対数関数, 除算, 指数関数の計算が必要である.
+ここまでを合計すると, $n^2$ 回の積と $2n$ 回の対数関数の計算が必要.
+
+$e_{ij} = a_{ij} w_j / w_i$ の計算には, 2 回の積の計算が必要.
+$e_{ij}$ から $(\log e_{ij})^2$ を計算するために, 1 回の積と 1 回の対数関数の計算が必要.
+非対角成分すべてを計算するには $3n(n-1)/2$ 回の積の計算と $n(n-1)/2$ 回の対数関数の計算が必要.
+
+---
+
+# Computational Complexity
+
+$\sum_{i,j} (\log e_{ij})^2$ の計算のために, $n(n - 1)/2 - 1$ 回和をとる.
+
+$1 / 2n(n-1)$ の計算と, それを $\sum_{i,j} (\log e_{ij})^2$ にかけるために, 3 回積をとる.
+
+合計は次のようになる.
+
+| 計算 | 回数 |
+| --- | --- |
+| 和 | $\frac{n(n-1)}{2} - 1$ |
+| 積 | $n^2 + \frac{3n(n-1)}{2} + 3$ |
+| 対数関数 | $2n + \frac{n(n-1)}{2}$ |
+
+---
+
+# Computational Complexity
+
+## $\mathrm{T\text{-}GCI}$ の計算量
+
+triad に関して, $\log^2 a_{ij} a_{jk} a_{ki}$ を計算する.
+この計算には 3 回の積 と 1回の対数関数が必要.
+
+これらを $n(n - 1)(n - 2)/6$ 個の triad に対して行うので,
+合計で $n(n - 1)(n - 2)/2$ 回の積と $n(n - 1)(n - 2)/6$ 回の対数関数の計算が必要.
+
+$\log^2 a_{ij} a_{jk} a_{ki}$ の和の計算で, $n(n - 1)(n - 2)/6 - 1$ 回の和をとる.
+
+$6 / n(n - 1)(n - 2)$ の計算と, それを $\sum_{i<j<k} (\log^2 a_{ij} a_{jk} a_{ki})$ にかけるために, 4 回積をとる.
+
+---
+
+# Computational Complexity
+
+合計は次のようになる.
+
+| 計算 | 回数 |
+| --- | --- |
+| 和 | $\frac{n(n-1)(n-2)}{6} - 1$ |
+| 積 | $\frac{3n(n-1)(n-2)}{2} + 4$ |
+| 対数関数 | $\frac{n(n-1)(n-2)}{6}$ |
+
+---
+
+# Computational Complexity
+
+## $\mathrm{GCI}$ と $\mathrm{T\text{-}GCI}$ の計算量の比較
+
+$\mathrm{GCI}$ の計算量のオーダーは $O(n^2)$ で, $\mathrm{T\text{-}GCI}$ の計算量のオーダーは $O(n^3)$ である.
+
+しかし, $n < 8$ では $\mathrm{T\text{-}GCI}$ の方が必要な操作の数が少ない.
+
+---
+
+# Example
+
+$n=4$ では $\mathrm{T\text{-}GCI}$ の方が必要な操作の数が少ない.
+
+$$
+A = \begin{pmatrix}
+1 & 2 & 3 & 4 \\
+1/2 & 1 & 5 & 6 \\
+1/3 & 1/5 & 1 & 7 \\
+1/4 & 1/6 & 1/7 & 1
+\end{pmatrix}
+$$
+
+$\mathrm{GCI}$ の計算過程：
+
+![height:250 center](./images/image1.png)
+
+---
+
+# Example
+
+$\mathrm{T\text{-}GCI}$ の計算過程：
+
+![height:250 center](./images/image2.png)
+
+---
+
+# Inconsistency Measures Based on Cycles
+
+PCM $A$ が整合しているとき, 次が成り立つ.
+
+$$
+a_{i_1 i_2} a_{i_2 i_3} \cdots a_{i_{l-1} i_l} a_{i_l i_1} = 1,
+\quad
+\forall i_1, i_2, \dots, i_l
+$$
+
+ただし, $l > 2$ はサイクルの長さ.
+
+任意のサイクル長 $l >2$ に対して, 整合性尺度を定めることができる.
+
+## Definition 2.
+
+PCM $A = (a_{ij})$ に対して, Cycles Consistency Index を次のように定める.
+
+$$
+I_l(A) = \frac{1}{l V_{n,l}} \sum_{i_1 \neq i_2 \neq \cdots \neq i_l} \left( \log \left( a_{i_1 i_2} a_{i_2 i_3} \cdots  a_{i_l i_1} \right) \right)^2
+$$
+
+---
+
+# Inconsistency Measures Based on Cycles
+
+## Remark 2.
+
+長さが 3 より大きいサイクルは複数の長さ 3 のサイクルに帰着する.
+例えば, $n = 4$ のとき, 次のようになる.
+
+$$
+a_{ij}a_{jk}a_{kl}a_{li} = a_{ij}a_{jk}(a_{ki}a_{ik})a_{kl}a_{li} = (a_{ij}a_{jk}a_{ki})(a_{ik}a_{kl}a_{li})
+$$
+
+![height:370 center](./images/image3.png)
+
+---
+
+# Inconsistency Measures Based on Cycles
+
+長さ 4 のサイクルでの強度 $d_{ijkl} = f(a_{ij}a_{jk}a_{kl}a_{li})$ は,
+複数の長さ 3 のサイクルの強度の関数 $d_{ijkl} = f^\prime(d_{ijk}, d_{ikl})$ として得られる.
+
+## Theorem 2.
+
+PCM $A = (a_{ij})$ と任意のサイクル長 $l > 2$ に対して次が成り立つ.
+
+$$
+I_l(A) = \mathrm{GCI}(A)
+$$
+
+$I_l(A)$ の計算量のオーダーは $O(n^l)$ で, $l$ が大きいほど計算は複雑になる.
+得られる値は同じなので, $n = 3$, すなわち $\mathrm{T\text{-}GCI}$ を考慮すれば良い.
+
+---
+
+# Conclusion
+
+- $\mathrm{CR}, \mathrm{GCI}$ といった特定の順位付け方法と結びついた整合性指標が広く用いられてきた
+- triads に基づく整合性指標は, 特定の順位付け方法と結びついていない
+- triads に基づく新しい整合性指標 $\mathrm{T\text{-}GCI}$ を提案した
+- $\mathrm{T\text{-}GCI}$ の値は $\mathrm{GCI}$ と一致する
+- $n < 8$ では $\mathrm{T\text{-}GCI}$ は $\mathrm{GCI}$ より計算が容易である
+- 任意のサイクル長で $\mathrm{T\text{-}GCI}$ と同様に整合性指標を定めても同じ値が得られる
