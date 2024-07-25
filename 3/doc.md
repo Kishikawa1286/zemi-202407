@@ -375,7 +375,7 @@ $\mathrm{CR}, \mathrm{GCI}$ をそれぞれ計算すると, $\mathrm{CR}(A) = 0.
 長さ 3 のサイクルの強度を評価する.
 強度が 1 に近いほどそのサイクルは整合している.
 
-長さ 3 のサイクルの強度の 1 からの偏差 $d_{ijk} = f(a_{ij} a_{jk} a_{ki})$ をすべての $i, j, k$ について計算する.
+<!-- 長さ 3 のサイクルの強度の 1 からの偏差 $d_{ijk} = f(a_{ij} a_{jk} a_{ki})$ をすべての $i, j, k$ について計算する. -->
 
 $$
 M = g\left( d_{123}, \ldots, d_{ijk} \ldots d_{n(n-1)(n-2)} \right), \quad i \neq j \neq k
