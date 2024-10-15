@@ -1,7 +1,7 @@
 ---
 marp: true
 theme: default
-header: 'ゼミ 石川健太郎 2024/07/22'
+header: '雑誌会 石川健太郎 2024/10/16'
 footer: 'The Triads Geometric Consistency Index in AHP-Pairwise Comparison Matrices'
 paginate: true
 size: 16:9
@@ -164,6 +164,7 @@ style: |
 
 math: katex
 
+
 ---
 
 <!-- _class: title -->
@@ -172,6 +173,11 @@ math: katex
 <br><br>
 
 Aguarón J, Escobar MT, Moreno-Jiménez JM, Turón A (2020)
+
+
+---
+
+# AHP の導入
 
 ---
 
@@ -270,7 +276,7 @@ $$
 
 ## $\mathrm{GCI}$
 
-次のように行幾何平均法の重要度ベクトル $w = (w_i)$ を求める.
+行幾何平均法の重要度ベクトル $w = (w_i)$ を次のように求める.
 
 $$
 w_i = \prod_{j=1}^n a_{ij}^\frac{1}{n}
@@ -282,6 +288,7 @@ $$
 \mathrm{GCI}(A) = \frac{1}{(n-1)(n-2)} \sum_{i, j} \left( \log \left( a_{ij} \frac{w_j}{w_i} \right) \right)^2
 $$
 
+行幾何平均法の重要度ベクトル $w$ を用いて定めているので,
 $\mathrm{GCI}$ は明らかに行幾何平均法と結びついている.
 
 ---
@@ -324,14 +331,14 @@ $$
 \begin{pmatrix} n \\ 3 \end{pmatrix}
 $$
 
-3 次元の PCM が整合しているとき, 次が成り立つ.
+PCM $A$ が完全整合しているとき, PCM $A$ から $i, j, k$ の 3 行 3 列を取り出した 3 次元の行列 $A_{ijk}$ について次が成り立つ.
 
 $$
-\mathrm{det}(A) = \underset{=1}{\underline{\frac{a_{ik}}{a_{ij} a_{jk}}}} + \underset{=1}{\underline{\frac{a_{ij} a_{jk}}{a_{ik}}}} - 2 = 0,
-\quad i, j, k \in \{1,2,3\}, ~~ i \neq j, j \neq k, k \neq i
+\mathrm{det}(A_{ijk}) = \underset{=1}{\underline{\frac{a_{ik}}{a_{ij} a_{jk}}}} + \underset{=1}{\underline{\frac{a_{ij} a_{jk}}{a_{ik}}}} - 2 = 0,
+\quad i, j, k \in N, ~~ i \neq j, j \neq k, k \neq i
 $$
 
-元の PCM から $i, j, k$ の 3 行 3 列を取り出した 3 次元の PCM の行列式の平均を計算している.
+この行列式の平均を計算している.
 
 ## その他の整合性指標
 
@@ -480,6 +487,19 @@ $n = 3$ で $\mathrm{T\text{-}GCI} = 0.31$, $n = 4$ で $\mathrm{T\text{-}GCI} =
 
 また, $\mathrm{GCI}$ と同じ値をとることから整合性指標の公理 [50, 52] を満たすことが確かめられる.
 
+<!-- ---
+
+# A Link between the Two Groups of Inconsistency Measures
+
+## 整合性指標の公理 [50, 52]
+
+1. 完全整合を表す整合性指標の値が存在する
+2. 代替案の順番を変えても整合性指標の値は変わらない（匿名性）
+3. PCM の各成分を $b \geq 1$ 乗した PCM の整合性指標の値は, 元の PCM の整合性指標の値よりも大きくなる
+4. 
+5. 整合性指標の関数 $I$ は $a_{ij}, i,j \in N$ 全てについて連続関数
+6. 全ての一対比較値を逆にしても整合性指標の値は変わらない -->
+
 ---
 
 # Computational Complexity
@@ -601,6 +621,8 @@ PCM $A = (a_{ij})$ に対して, Cycles Consistency Index を次のように定�
 $$
 I_l(A) = \frac{1}{l V_{n,l}} \sum_{i_1 \neq i_2 \neq \cdots \neq i_l} \left( \log \left( a_{i_1 i_2} a_{i_2 i_3} \cdots  a_{i_l i_1} \right) \right)^2
 $$
+
+ただし, $V_{n,l} = n (n-1) \cdots (n-l+1)$ である.
 
 ---
 
