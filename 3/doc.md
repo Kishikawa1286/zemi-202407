@@ -60,13 +60,21 @@ style: |
         font-size: 1.4em;
     }
 
-    h2,
-    h3,
+    h2 {
+        color: #141414;
+        font-size: 1.1em;
+    }
+
+    h3 {
+        color: #141414;
+        font-size: 1.0em;
+    }
+
     h4,
     h5,
     h6 {
         color: #141414;
-        font-size: 1.1em;
+        font-size: 0.9em;
     }
 
     /* only apply to the first occurrence of h1 */
@@ -179,6 +187,91 @@ Aguarón J, Escobar MT, Moreno-Jiménez JM, Turón A (2020)
 
 # AHP の導入
 
+## 多基準意思決定問題
+
+AHP (Analytic Hierarchy Process) は多基準意思決定問題を支援するための手法.
+多基準意思決定問題とは, 多くの基準のもとで代替案選択を行う問題.
+
+## AHP の手続き
+
+### 1. 問題の階層化
+
+基準・代替案を階層化する.
+
+![height:200 center](./images/image4.png)
+
+---
+
+# AHP の導入
+
+### 2. 一対比較による評価
+
+基準・代替案の一対比較を行い, PCM (Pairwise Comparison Matrix) を作成する.
+
+$$
+\begin{pmatrix}
+1 & 3 & 7 & 9 \\
+1/3 & 1 & 2 & 5 \\
+1/7 & 1/2 & 1 & 1 \\
+1/9 & 1/5 & 1 & 1
+\end{pmatrix}
+$$
+
+| 値 | 意味 |
+| --- | --- |
+| 1 | 行と列が同程度重要 |
+| 3 | 行が列より若干重要 |
+| 5 | 行が列より重要 |
+| 7 | 行が列よりかなり重要 |
+| 9 | 行が列より絶対的に重要 |
+
+---
+
+# AHP の導入
+
+#### 整合性指標
+
+ある PCM の一対比較が整合しているかどうかを評価する指標.
+許容できないほど PCM が整合していないときは, 一対比較を見直す.
+
+##### $\mathrm{CI}, \mathrm{CR}$
+
+$$
+\mathrm{CI}(A) = \frac{\lambda_\mathrm{max} - n}{n - 1}, \quad
+\mathrm{CR}(A) = \frac{\mathrm{CI}(A)}{\mathrm{RI}(n)}
+$$
+
+##### $\mathrm{GCI}$
+
+$$
+\mathrm{GCI}(A) = \frac{1}{(n-1)(n-2)} \sum_{i, j} \left( \log \left( a_{ij} \frac{w_j}{w_i} \right) \right)^2
+$$
+ただし, $w$ は行幾何平均法によって推定された重要度ベクトル.
+
+---
+
+# AHP の導入
+
+### 3. 重要度を推定・総合評価
+
+基準の PCM および各基準のもとでの代替案の PCM それぞれから重要度ベクトル $w = (w_i)$ を推定する.
+
+#### 固有値法
+
+$$
+\begin{align*}
+A w & = \lambda_\mathrm{max} w \\
+& \text{ with } ~~ w_i \geq 0, ~~ i = 1, \dots, n \\
+& \text{ and } ~~ \sum_{i=1}^n w_i = 1
+\end{align*}
+$$
+
+#### 行幾何平均法
+
+$$
+w_i = \frac{\prod_{j=1}^n a_{ij}^\frac{1}{n}}{\sum_{i=1}^n \prod_{j=1}^n a_{ij}^\frac{1}{n}}
+$$
+
 ---
 
 # Introduction
@@ -216,7 +309,7 @@ $\mathrm{T\text{-}GCI}$ と値が一致することの証明
 PCM の整合性指標は以下の二つのグループに分類することができる.
 
 1. 特定の順位付け方法と結びついているもの
-2. triads に基づくもの (Saaty の与えた (完全) 整合の定義に基づくもの)
+2. 長さ 3 のサイクルに基づくもの (Saaty の与えた (完全) 整合の定義に基づくもの)
 
 ---
 
@@ -279,7 +372,7 @@ $$
 行幾何平均法の重要度ベクトル $w = (w_i)$ を次のように求める.
 
 $$
-w_i = \prod_{j=1}^n a_{ij}^\frac{1}{n}
+w_i = \frac{\prod_{j=1}^n a_{ij}^\frac{1}{n}}{\sum_{i=1}^n \prod_{j=1}^n a_{ij}^\frac{1}{n}}
 $$
 
 Geometric Consistency Index ($\mathrm{GCI}$) は次のように定義される.
@@ -297,13 +390,13 @@ $\mathrm{GCI}$ は明らかに行幾何平均法と結びついている.
 
 ## Koczkodaj の整合性指標 [30]
 
-次の triads に基づく整合性指標は特定の順位付け方法と結びついていない. [30]
+次の長さ 3 のサイクルに基づく整合性指標は特定の順位付け方法と結びついていない. [30]
 
 $$
 \mathrm{KI}(A) = \max_{i < j < k} \left\{ \min \left\{ \left| 1 - \frac{a_{ik}}{a_{ij} a_{jk}} \right|, \left| 1 - \frac{a_{ij} a_{jk}}{a_{ik}} \right| \right\} \right\}
 $$
 
-推移率の破れが最大の triads $a_{ij}, a_{jk}, a_{ki}$ に注目している.
+推移率の破れが最大の長さ 3 のサイクル $a_{ij}, a_{jk}, a_{ki}$ に注目している.
 
 $a_{ij} a_{jk} a_{ki} > 1$ となるサイクルを考慮している.
 
@@ -324,7 +417,7 @@ $$ -->
 
 ## Palaez と Lamata の整合性指標 [31]
 
-次の triads に基づく整合性指標は特定の順位付け方法と結びついていない. [31]
+次の長さ 3 のサイクルに基づく整合性指標は特定の順位付け方法と結びついていない. [31]
 
 $$
 \mathrm{PLI}(A) = \sum_{i < j < k} \left( \frac{a_{ik}}{a_{ij} a_{jk}} + \frac{a_{ij} a_{jk}}{a_{ik}} - 2 \right) / 
@@ -374,11 +467,11 @@ $\mathrm{CR}, \mathrm{GCI}$ をそれぞれ計算すると, $\mathrm{CR}(A) = 0.
 
 # The Triads Geometric Consistency Measure
 
-## Triads に基づく整合性の評価
+## 長さ 3 のサイクルに基づく整合性の評価
 
 どちらの行列がより整合しているかを評価するために, 必ずしもある順位付け方法を適用して, 対応する整合性指標を計算する必要はない.
 
-ここでは triads に基づく一貫性の評価を考える.
+ここでは長さ 3 のサイクルに基づく一貫性の評価を考える.
 長さ 3 のサイクルの強度を評価する.
 強度が 1 に近いほどそのサイクルは整合している.
 
@@ -662,8 +755,8 @@ $I_l(A)$ の計算量のオーダーは $O(n^l)$ で, $l$ が大きいほど計�
 # Conclusion
 
 - $\mathrm{CR}, \mathrm{GCI}$ といった特定の順位付け方法と結びついた整合性指標が広く用いられてきた
-- triads に基づく整合性指標は, 特定の順位付け方法と結びついていない
-- triads に基づく新しい整合性指標 $\mathrm{T\text{-}GCI}$ を提案した
+- 長さ 3 のサイクルに基づく整合性指標は, 特定の順位付け方法と結びついていない
+- 長さ 3 のサイクルに基づく新しい整合性指標 $\mathrm{T\text{-}GCI}$ を提案した
 - $\mathrm{T\text{-}GCI}$ の値は $\mathrm{GCI}$ と一致する
 - $n < 8$ では $\mathrm{T\text{-}GCI}$ は $\mathrm{GCI}$ より計算が容易である
 - 任意のサイクル長で $\mathrm{T\text{-}GCI}$ と同様に整合性指標を定めても同じ値が得られる
